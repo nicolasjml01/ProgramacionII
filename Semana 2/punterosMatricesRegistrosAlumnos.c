@@ -139,7 +139,7 @@ main(void)
     scanf("%[^\n]%*c", nombre);
     indice = buscarRegistroNombre(nombre, regEmpleados, NUM_EMPLEADOS);
     if (indice == -1) printf ("\nError: nombre no encontrado");
-    else printf ("\n El nombre ha sido encontrado en el indice: %d", indice);
+    else printf ("\n El nombre ha sido encontrado en el indice: %d\n", indice);
     // Otra ocpion es llamar a modificar registro
     // modificarRegistro(&regEmpleados(indice));
     return 0;
