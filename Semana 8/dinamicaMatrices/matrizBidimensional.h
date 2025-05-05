@@ -46,4 +46,6 @@ matIntRef sumarMatInt(matIntRef a, matIntRef b, intRef errNum);
 matFloatRef multiplicarMatFloat(matFloatRef a, matFloatRef b, intRef errNum);
 float *obtenerColumnaMaxMatFloat(matFloatRef mat, intRef errNum);
 
+matIntRef devolverPrimeraSimetrica(matIntRef mat, int orden, intRef errNum);
+
 #endif

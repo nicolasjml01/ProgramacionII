@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "matrizBidimensional.h"
 
-
+#define ORDEN 3
 
 matFloatRef
 crearMatFloat(int numFil, int numCol, intRef errNum)
@@ -414,5 +414,32 @@ float *obtenerColumnaMaxMatFloat(matFloatRef mat, intRef errNum)
     }
 }
 
+matIntRef devolverPrimeraSimetrica(matIntRef mat, int orden, intRef errNum)
+{
+    bool existe = false;
+    matIntRef temp;
 
+    temp = crearMatInt(orden, orden, errNum)
+    if (temp == NULL) return NULL;
 
+    for (int f = 0; f <= mat->numFil-orden && !existe; f++) {
+        for (int c = 0; c <= mat->numCol-orden && !existe; c++) {
+            if (esSimetrica(mat, orden, f, c)) {
+                encontrada = true;
+            }
+        }
+    }
+}
+
+// Funcion para determinar si es simetrica
+bool esSimetrica(matIntRef mat, int orden, int fila, int columna) {
+
+    for (int f = 0; f < orden; f++) {
+        for (int c = 0; c < orden; c++) {
+            if (matriz[fila + i][columna + j] != matriz[fila + j][columna + i]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
