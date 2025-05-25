@@ -533,4 +533,67 @@ crearListaValoresAleatorios(ListaEnlazadaRef raiz, int numNodos)
 	return -1;
 }
 
+// Funciones con ficheros
+int guardarListaEnlazadaTexto(ListaEnlazada raiz, char *nombreFichero)
+{
+	FILE *fichero;           // Para abrir y escribir en el fichero de texto
+    tipoNodoRef actual;      // Para recorrer la lista nodo a nodo
+    int contador;            // Para contar cuántos nodos se han escrito correctamente
+    
+	if (raiz == NULL) return -1;
+	if (nombreFichero == NULL) return -1;
 
+	fichero = fopen(nombreFichero, "w");
+	if (fichero == NULL) return -1;
+
+	actual = raiz;
+	contador = 0;
+
+	while(actual != NULL)
+	{
+		fprintf(fichero, "%d ", actual->info);
+		contador++;
+		actual = actual->sig;
+	}
+
+	fclose(fichero);
+	return contador;
+}
+int cargarListaEnlazadaTexto (ListaEnlazadaRef raiz, char *nombreFichero)
+{
+	FILE *fichero;          // Para abrir y leer el fichero de texto
+    tipoInfo valor;         // Para almacenar cada entero leído del fichero
+    int leidos;             // Para almacenar el resultado de fscanf y detectar errores de lectura
+    int contador = 0;           // Para contar cuántos nodos se insertaron correctamente
+
+	if (raiz == NULL) return -1;
+	if (nombreFichero == NULL) return -1;
+
+	// Creamos una lista vacia
+	crearVacia(raiz);
+	
+	// Abrimos el fichero
+	fichero = fopen(nombreFichero, "r");
+	if (fichero == NULL) return -2;
+
+	while((leidos = fscanf(fichero, "%d ", &valor)) == 1)
+	{
+		if(insertarOrdenada(raiz, &valor) != 0)
+		{
+			liberarListaEnlazada(raiz);
+			fclose(fichero);
+			return -2;
+		}
+		contador++;	
+	}
+
+	if (leidos != EOF)
+	{
+		fclose(fichero);
+		return -2;
+	}
+
+	fclose(fichero);
+	return contador;
+	
+}

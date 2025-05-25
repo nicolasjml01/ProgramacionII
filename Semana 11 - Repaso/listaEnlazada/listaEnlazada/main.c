@@ -9,11 +9,12 @@
 
 int main(int argc, const char * argv[])
 {
-	char menu[] = "Listas enlazadas:\n A) Crear lista aleatoria\n B) Añadir al principio\n C) Añadir al final\n D) Insertar en posición por índice\n E) Devolver valor en posición por índice\n F) Eliminar al principio\n G) Eliminar al final\n H) Eliminar en posición por índice\n I) Crear lista ordenada\n J) Mostrar lista\n K) Liberar listas\n Q) Salir\n";
+    char menu[] = "Listas enlazadas:\n A) Crear lista aleatoria\n B) Añadir al principio\n C) Añadir al final\n D) Insertar en posición por índice\n E) Devolver valor en posición por índice\n F) Eliminar al principio\n G) Eliminar al final\n H) Eliminar en posición por índice\n I) Crear lista ordenada\n J) Mostrar lista\n K) Liberar listas\n L) Guardar lista en fichero\n M) Cargar lista desde fichero (ordenada)\n Q) Salir\n";
     ListaEnlazada raiz,raizOrdenada;
 	tipoNodoRef aux;
 	int indice,i;
     char opcion;
+    char *nombreFichero = "listas.txt";
 	tipoInfo temp=1234,
 				temp2 = 4321;
 	   
@@ -37,16 +38,16 @@ int main(int argc, const char * argv[])
 				printf("\n\nInsertando nodo comienzo: %d", insertarNodoComienzo(&raiz, &temp));
 				break;
 			case 'C':
-				//printf("\n\nInsertando nodo final: %d", insertarDespuesDeNodo(&raiz, NULL, &temp2));
+				printf("\n\nInsertando nodo final: %d", insertarDespuesDeNodo(&raiz, NULL, &temp2));
                 //Comentar la linea anterior, y descomentar la siguiente en cuanto ya tenga implementada
                 //la función inertarNodoFinal.
-                printf("\n\nInsertando nodo final: %d", insertarNodoFinal(&raiz, &temp2));
+                //printf("\n\nInsertando nodo final: %d", insertarNodoFinal(&raiz, &temp2));
 				break;
 			case 'D':
 				printf("\nIntroduce una posición como entero: ");
                 scanf("%d%*c", &indice);
                 
-                insertarNodoPosicionIndice(&raiz, indice, &temp2);
+                //insertarNodoPosicionIndice(&raiz, indice, &temp2);
                 
                 //En cuanto tenga implementada la función insertarNodoPosicionIndice debe
                 //descomentar la línea anterior y comentar las restantes líneas de este case.
@@ -58,8 +59,8 @@ int main(int argc, const char * argv[])
                     aux = aux->sig;
                 }
                 if (aux != NULL) {
-                    printf("\n\nInsertando nodo antes: %d",insertarAntesDeNodo(&raiz, aux, &temp));
-                    //printf("\n\nInsertando nodo después: %d",insertarDespuesDeNodo(&raiz, aux, &temp2));
+                    //printf("\n\nInsertando nodo antes: %d",insertarAntesDeNodo(&raiz, aux, &temp));
+                    printf("\n\nInsertando nodo después: %d",insertarDespuesDeNodo(&raiz, aux, &temp2));
                 }
                 break;
             case 'E':
@@ -105,6 +106,15 @@ int main(int argc, const char * argv[])
                 printf("Liberación raiz: %d\n",liberarListaEnlazada(&raiz));
                 printf("Liberación raizOrdenada: %d\n",liberarListaEnlazada(&raizOrdenada));
                 break;
+            case 'L':
+                if(raiz != NULL) printf("\nGuardando lista raiz en fichero '%s': %d\n", nombreFichero, guardarListaEnlazadaTexto(raiz, (char *)nombreFichero));
+                if(raizOrdenada != NULL) printf("\nGuardando lista ordenada raiz en fichero '%s': %d\n", nombreFichero, guardarListaEnlazadaTexto(raizOrdenada, (char *)nombreFichero));
+                break;
+
+            case 'M':
+                printf("\nCargando lista en orden desde fichero '%s': %d\n", nombreFichero, cargarListaEnlazadaTexto(&raiz, (char *)nombreFichero));
+                break;
+
             default:
 				printf("\n\nOpción incorrecta!\a\n\n");
 				break;
