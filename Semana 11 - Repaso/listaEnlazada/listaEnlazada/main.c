@@ -112,7 +112,7 @@ int main(int argc, const char * argv[])
                 break;
 
             case 'M':
-                printf("\nCargando lista en orden desde fichero '%s': %d\n", nombreFichero, cargarListaEnlazadaTexto(&raiz, (char *)nombreFichero));
+                printf("\nCargando lista en orden desde fichero '%s': %d\n", nombreFichero, cargarListaEnlazadaTextoV2(&raiz, (char *)nombreFichero));
                 break;
 
             default:

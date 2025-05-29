@@ -597,3 +597,65 @@ int cargarListaEnlazadaTexto (ListaEnlazadaRef raiz, char *nombreFichero)
 	return contador;
 	
 }
+
+// Version 2 que es mas propensa al examen. Cargar el fichero e ir creando la lista
+int cargarListaEnlazadaTextoV2 (ListaEnlazadaRef raiz, char *nombreFichero)
+{
+    FILE *fich;
+    tipoNodoRef nuevo;
+    tipoInfo info;
+    int res;
+
+    if (raiz == NULL || nombreFichero == NULL) return -1;
+
+    if((fich = fopen(nombreFichero, "r")) == NULL) return -2;
+
+    while ((res = fscanf(fich, "%d ", &info)) == 1)
+    {
+        // Creamos el nuevo nodo
+        nuevo = malloc(sizeof(tipoNodo));
+        if(nuevo == NULL)
+        {
+            fclose(fich);
+            return -1;
+        }
+		nuevo->info = info;
+		nuevo->sig = NULL;
+
+        // Insercion en la lista ordenada
+        tipoNodoRef temp, anterior, actual;
+        if (*raiz == NULL || (*raiz)->info >= info) // Lista vacía o la raíz es mayor que la info
+        {
+			nuevo->sig = *raiz;
+            *raiz = nuevo;
+        }else
+		{
+			anterior = *raiz;
+			actual = (*raiz)->sig;
+			while (actual != NULL && actual->info < info)
+			{
+				anterior = actual;
+				actual = actual->sig;
+			}
+			nuevo->sig = actual;
+			anterior->sig = nuevo;
+		}
+        
+    }
+
+    if (res != EOF)
+    {
+        tipoNodoRef aBorrar;
+        while(*raiz != NULL)
+        {
+            aBorrar = *raiz;
+            *raiz = (*raiz)->sig;
+            free(aBorrar);
+        }
+        fclose(fich);
+        return -3;
+    }
+
+    fclose(fich);
+    return 0;
+}
