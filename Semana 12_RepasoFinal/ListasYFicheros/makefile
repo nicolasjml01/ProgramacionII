@@ -1,4 +1,4 @@
-ejercicio1: listaEnlazada.o main.o
+ejercicio1y2: listaEnlazada.o main.o
 	gcc listaEnlazada.o main.o -o ejercicio1
 
 listaEnlazada.o : listaEnlazada.c listaEnlazada.h
