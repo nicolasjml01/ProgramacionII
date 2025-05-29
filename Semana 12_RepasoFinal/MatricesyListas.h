@@ -18,7 +18,6 @@ matIntRef crearMatInt(int numFil, int numCol, intRef errNum);
 int liberarMatInt(matIntRef mat);
 int leerMatInt(matIntRef m, charRef c);
 int mostrarMatInt(matIntRef m, charRef c);
-matIntRef sumarMatInt(matIntRef a, matIntRef b, intRef errNum);
 
 
 #endif
